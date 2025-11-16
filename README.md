@@ -27,5 +27,4 @@ npm run dev
 ```python
 # backend/app/__init__.py
 # Empty - required to make this folder a Python package.
-# backend/app/__init__.py
-# Empty - required to make this folder a Python package.
+
