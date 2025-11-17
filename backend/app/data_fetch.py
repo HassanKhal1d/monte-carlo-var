@@ -1,16 +1,25 @@
-# backend/app/data_fetch.py
+# data_fetch.py
 import yfinance as yf
-import os
+import pandas as pd
+from pathlib import Path
 
-OUT = "backend/app/data"
-os.makedirs(OUT, exist_ok=True)
+def fetch_sp500(ticker='SPY', start='2000-01-01', end=None, save_path='spy.csv'):
+    """
+    Fetch S&P 500 historical data and save to CSV.
+    Handles yfinance changes (Adj Close may be missing).
+    """
+    # Download data with auto_adjust=False to keep 'Adj Close'
+    df = yf.download(ticker, start=start, end=end, progress=False, auto_adjust=False)
 
-def fetch_sp500(start="1995-08-01", end="2025-08-31", ticker="^GSPC", out_csv="backend/app/data/spy.csv"):
-    df = yf.download(ticker, start=start, end=end, progress=False)
-    df = df[['Open','High','Low','Close','Adj Close','Volume']]
-    df.to_csv(out_csv)
-    print(f"Saved {out_csv}")
-    return df
+    # Ensure only the columns that exist are selected
+    expected_columns = ['Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume']
+    available_columns = [col for col in expected_columns if col in df.columns]
+    df = df[available_columns]
+
+    # Save to CSV
+    path = Path(save_path)
+    df.to_csv(path)
+    print(f"Data saved to {path.resolve()}")
 
 if __name__ == "__main__":
     fetch_sp500()
