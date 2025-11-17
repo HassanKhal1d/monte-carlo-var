@@ -37,7 +37,7 @@ export default function App(){
 
   return (
     <div style={{padding:20, fontFamily:"Arial, sans-serif"}}>
-      <h1>Monte Carlo VaR Explorer</h1>
+      <h1>Monte Carlo VaR Model</h1>
       <Controls onRun={runSim} loading={loading}/>
       {metrics && <Explanation metrics={metrics} />}
       {paths.length>0 && <Chart paths={paths} />}
