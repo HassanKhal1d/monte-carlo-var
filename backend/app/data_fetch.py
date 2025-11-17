@@ -3,7 +3,7 @@ import yfinance as yf
 import pandas as pd
 from pathlib import Path
 
-def fetch_sp500(ticker='SPY', start='2000-01-01', end=None, save_path='spy.csv'):
+def fetch_sp500(ticker='SPY', start='2000-01-01', end=None, save_path='data/spy.csv'):
     """
     Fetch S&P 500 historical data and save to CSV.
     Handles yfinance changes (Adj Close may be missing).
